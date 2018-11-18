@@ -24,7 +24,7 @@ class ShowRepository(val showsMap: Map<String, Show> = mapOf<String, Show>(Pair(
     }
 
     override fun findById(s: String): Mono<Show> {
-        return Mono.empty()
+        return Mono.justOrEmpty(showsMap.get(s))
     }
 
     override fun findById(publisher: Publisher<String>): Mono<Show> {

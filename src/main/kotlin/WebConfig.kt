@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.server.RouterFunction
 import org.springframework.web.reactive.config.WebFluxConfigurer
 import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.function.server.HandlerFunction
+import org.springframework.web.reactive.function.server.RequestPredicate
 
 @Configuration
 @EnableWebFlux
@@ -17,5 +18,6 @@ class WebConfig : WebFluxConfigurer {
     fun routeShow(showHandler: ShowHandler): RouterFunction<ServerResponse> {
         return RouterFunctions
             .route(RequestPredicates.GET("/shows"), HandlerFunction<ServerResponse> { showHandler.all(it) })
+            .andRoute(RequestPredicates.GET("/show/{id}"), HandlerFunction<ServerResponse> { showHandler.byId(it) })
     }
 }

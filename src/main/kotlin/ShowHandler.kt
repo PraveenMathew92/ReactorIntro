@@ -9,7 +9,13 @@ import reactor.core.publisher.Mono
 @Component
 class ShowHandler(private val showRepository: ShowRepository) {
     fun all(serverRequest: ServerRequest): Mono<ServerResponse> {
-        val shows = this.showRepository.findAll()
+        val shows = showRepository.findAll()
         return ServerResponse.ok().body<Show, Flux<Show>>(shows, Show::class.java)
+    }
+
+    fun byId(serverRequest: ServerRequest): Mono<ServerResponse> {
+        val id = serverRequest.pathVariable("id")
+        val show = showRepository.findById(id)
+        return ServerResponse.ok().body(show, Show::class.java)
     }
 }
