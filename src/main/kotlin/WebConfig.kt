@@ -19,5 +19,6 @@ class WebConfig : WebFluxConfigurer {
         return RouterFunctions
             .route(RequestPredicates.GET("/shows"), HandlerFunction<ServerResponse> { showHandler.all(it) })
             .andRoute(RequestPredicates.GET("/show/{id}"), HandlerFunction<ServerResponse> { showHandler.byId(it) })
+            .andRoute(RequestPredicates.GET("/events/{id}"), HandlerFunction<ServerResponse> { showHandler.getEvents(it) })
     }
 }
