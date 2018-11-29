@@ -28,4 +28,10 @@ class ShowHandler(private val showRepository: ShowRepository) {
             synchronousSink.next(ShowEvent(id, Date()))}.delayElements(Duration.ofSeconds(1))
         return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(events, ShowEvent::class.java)
     }
+
+    fun post(serverRequest: ServerRequest): Mono<ServerResponse> {
+        val show = serverRequest.bodyToMono(Show::class.java)
+        show.map { showRepository.save(it) }
+        return ServerResponse.status(201).build()
+    }
 }
