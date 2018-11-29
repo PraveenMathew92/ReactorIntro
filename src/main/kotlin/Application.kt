@@ -10,4 +10,8 @@ class Application
 
 fun main(args: Array<String>) {
     runApplication<Application>(*args)
+
+    val client = Client()
+    client.addAShow()
+    client.displayEvent()
 }
